@@ -36,6 +36,7 @@ embedding_dir = "./glove.6B.50d.txt"
 epoch = 3
 batch = 256
 embedding_dim = 50
+max_len = 300
 
 # Flow
 print("0. Setting Environment")
@@ -45,7 +46,7 @@ print("1. load data")
 train_x, train_y, test_x, test_y, val_x, val_y = load_data(train_dir, test_dir)
 
 print("2. pre processing")
-train_x, test_x, val_x, tokenizer = pre_processing(train_x, test_x, val_x)
+train_x, test_x, val_x, tokenizer = pre_processing(train_x, test_x, val_x, max_len)
 
 print("3. text to vector")
 embedding_matrix = text_to_vector(tokenizer.word_index, embedding_dir, word_dimension=embedding_dim)

@@ -33,7 +33,7 @@ class DataLoading:
 
 
 # convert Text data to vector.
-def pre_processing(train_x, test_x, val_x):
+def pre_processing(train_x, test_x, val_x, max_len):
     CHARS_TO_REMOVE = r'!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n“”’\'∞θ÷α•à−β∅³π‘₹´°£€\×™√²—'
 
     train_x = train_x.tolist()
@@ -47,10 +47,6 @@ def pre_processing(train_x, test_x, val_x):
     train_x = tokenizer.texts_to_sequences(train_x)
     test_x = tokenizer.texts_to_sequences(test_x)
     val_x = tokenizer.texts_to_sequences(val_x)
-
-    # total_list = list(train_x) + list(test_x) + list(val_x)
-    # max_len = max([len(total_list[i]) for i in range(0, len(total_list))])
-    max_len = 300
 
     train_x = sequence.pad_sequences(train_x, maxlen=max_len, padding='post')
     test_x = sequence.pad_sequences(test_x, maxlen=max_len, padding='post')
