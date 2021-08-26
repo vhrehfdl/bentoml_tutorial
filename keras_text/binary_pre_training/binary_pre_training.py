@@ -1,11 +1,11 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
 
 from utils import set_env, create_callbacks
 from utils.data_helper import pre_processing, text_to_vector
-from models.text_cnn import TextCNN
 from utils.evaluation import Evaluation
+from models.text_cnn import TextCNN
 
 
 def load_data(train_dir, test_dir):
@@ -27,9 +27,9 @@ def load_data(train_dir, test_dir):
 
 
 # Directory Setting
-train_dir = "./data/binary_train.csv"
-test_dir = "./data/binary_test.csv"
-model_dir = "./model_save"
+train_dir = "../data/binary_train.csv"
+test_dir = "../data/binary_test.csv"
+model_dir = "../model_save"
 embedding_dir = "./glove.6B.50d.txt"
 
 # HyperParameter
