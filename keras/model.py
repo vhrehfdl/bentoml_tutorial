@@ -1,43 +1,52 @@
-from tensorflow.keras.preprocessing import sequence
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Embedding
 from tensorflow.keras.layers import LSTM
-from tensorflow.keras.datasets import imdb
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn import preprocessing
+from keras.preprocessing import text, sequence
+
 
 max_features = 1000
 maxlen = 80 # cut texts after this number of words (among top max_features most common words)
-batch_size = 300
-index_from=3 # word index offset
+batch_size = 256
 
-# A dictionary mapping words to an integer index
-imdb.load_data(num_words=max_features)
-word_index = imdb.get_word_index()
+train = pd.read_csv("binary_train.csv")
+test = pd.read_csv("binary_test.csv")
 
-# The first indices are reserved
-word_index = {k:(v+index_from) for k,v in word_index.items()} 
-word_index["<PAD>"] = 0
-word_index["<START>"] = 1
-word_index["<UNK>"] = 2  # unknown
+train, val = train_test_split(train, test_size=0.1, random_state=42)
 
-# Use decode_review to look at original review text in training/testing data
-reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
-def decode_review(encoded_text):
-    return ' '.join([reverse_word_index.get(i, '?') for i in encoded_text])
+train_x, train_y = train["text"], train["label"]
+test_x, test_y = test["text"], test["label"]
+val_x, val_y = val["text"], val["label"]
 
-(x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=max_features, index_from=index_from)
+encoder = preprocessing.LabelEncoder()
+train_y = encoder.fit_transform(train_y)
+test_y = encoder.fit_transform(test_y)
+val_y = encoder.fit_transform(val_y)
 
-x_train = sequence.pad_sequences(x_train,
-                                 value=word_index["<PAD>"],
-                                 padding='post',
-                                 maxlen=maxlen)
+train_x = train_x.tolist()
+test_x = test_x.tolist()
+val_x = val_x.tolist()
 
-x_test = sequence.pad_sequences(x_test,
-                                value=word_index["<PAD>"],
-                                padding='post',
-                                maxlen=maxlen)
+CHARS_TO_REMOVE = r'!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n“”’\'∞θ÷α•à−β∅³π‘₹´°£€\×™√²—'
+tokenizer = text.Tokenizer(filters=CHARS_TO_REMOVE)
+tokenizer.fit_on_texts(train_x + test_x + val_x)  # Make dictionary
+
+# Text match to dictionary.
+train_x = tokenizer.texts_to_sequences(train_x)
+test_x = tokenizer.texts_to_sequences(test_x)
+val_x = tokenizer.texts_to_sequences(val_x)
+
+total_list = list(train_x) + list(test_x) + list(val_x)
+max_len = max([len(total_list[i]) for i in range(0, len(total_list))])
+
+train_x = sequence.pad_sequences(train_x, maxlen=max_len, padding='post')
+test_x = sequence.pad_sequences(test_x, maxlen=max_len, padding='post')
+val_x = sequence.pad_sequences(val_x, maxlen=max_len, padding='post')
 
 model = Sequential()
-model.add(Embedding(max_features, 128))
+model.add(Embedding(len(tokenizer.word_index) + 1, 128))
 model.add(LSTM(128, dropout=0.2, recurrent_dropout=0.2))
 model.add(Dense(1, activation='sigmoid'))
 
@@ -47,13 +56,11 @@ model.compile(loss='binary_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
-model.fit(x_train, y_train,
+model.fit(train_x, train_y,
           batch_size=batch_size,
-          epochs=3, # for demo purpose :P
-          validation_data=(x_test, y_test))
+          epochs=3,
+          validation_data=(val_x, val_y))
 
-score, acc = model.evaluate(x_test, y_test,
-                            batch_size=batch_size)
-
+score, acc = model.evaluate(test_x, test_y, batch_size=batch_size)
 print('Test score :', score)
 print('Test accuracy :', acc)

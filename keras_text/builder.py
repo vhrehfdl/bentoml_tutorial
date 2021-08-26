@@ -1,6 +1,6 @@
 # 1) import the custom BentoService defined above
-from keras_text_classification_service import KerasTextClassificationService
-from model import model, tokenizer
+from service import KerasTextClassificationService
+from binary_pre_training import model, tokenizer
 
 # 2) `pack` it with required artifacts
 bento_svc = KerasTextClassificationService()
