@@ -1,3 +1,6 @@
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+
 import pandas as pd
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
@@ -73,3 +76,9 @@ print("## Confusion Matrix \n", cf_matrix)
 print("## Accuracy \n", accuracy)
 
 
+from service import KerasClassification
+bento_svc = KerasClassification()
+bento_svc.pack('model', model)
+bento_svc.pack('tokenizer', tokenizer)
+
+saved_path = bento_svc.save()

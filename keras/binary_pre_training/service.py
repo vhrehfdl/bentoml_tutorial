@@ -9,7 +9,7 @@ from keras.preprocessing import sequence
 
 @artifacts([KerasModelArtifact('model'), PickleArtifact('tokenizer')])
 @env(pip_packages=['tensorflow==1.15.0', 'numpy', 'pandas'])
-class KerasTextClassificationService(BentoService):
+class KerasClassification(BentoService):
     @api(input=JsonInput(), batch=True)
     def predict(self, parsed_jsons: List[JsonSerializable]):
         input_texts = [parsed_json['text'] for parsed_json in parsed_jsons]

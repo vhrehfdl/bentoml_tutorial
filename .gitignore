@@ -1,5 +1,3 @@
-__pycache__
 model_save
-glove*.zip
+glove*
 *.pyc
-.vscode

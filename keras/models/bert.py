@@ -16,7 +16,7 @@ class BertLayer(tf.keras.layers.Layer):
 
     def build(self, input_shape):
         self.bert = hub.Module(
-            "https://tfhub.dev/google/bert_uncased_L-12_H-768_A-12/1",
+            "http://tfhub.dev/google/bert_uncased_L-12_H-768_A-12/1",
             trainable=self.trainable,
             name="{}_module".format(self.name)
         )
