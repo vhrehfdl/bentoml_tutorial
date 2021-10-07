@@ -16,6 +16,7 @@ def load_data(train_dir, test_dir):
     test = pd.read_csv(test_dir)
 
     train, val = train_test_split(train, test_size=0.1, random_state=42)
+    train, temp = train_test_split(train, test_size=0.9, random_state=42)
 
     train_x, train_y = train["text"], train["label"]
     test_x, test_y = test["text"], test["label"]
@@ -74,6 +75,5 @@ model.fit(x=train_x, y=train_y, epochs=epoch, batch_size=batch, validation_data=
 from service import KerasClassification
 bento_svc = KerasClassification()
 bento_svc.pack('model', model)
-bento_svc.pack('tokenizer', tokenizer)
 
 saved_path = bento_svc.save()

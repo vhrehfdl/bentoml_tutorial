@@ -1,3 +1,6 @@
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+
 from typing import List
 
 from bentoml import api, env, BentoService, artifacts
@@ -5,7 +8,8 @@ from bentoml.frameworks.keras import KerasModelArtifact
 from bentoml.service.artifacts.common import PickleArtifact
 from bentoml.adapters import JsonInput
 from bentoml.types import JsonSerializable
-from keras.preprocessing import sequence
+
+from models.bert import BERT
 from utils.bert_helper import convert_examples_to_features, convert_text_to_examples
 
 @artifacts([KerasModelArtifact('model'), PickleArtifact('tokenizer')])
