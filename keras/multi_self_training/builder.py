@@ -17,7 +17,6 @@ def load_data(train_dir, test_dir, category_size):
     test = pd.read_csv(test_dir)
 
     train, val = train_test_split(train, test_size=0.1, random_state=42)
-    temp, train = train_test_split(train, test_size=0.1, random_state=42)
 
     train_x, train_y = train["turn3"], train["label"]
     test_x, test_y = test["turn3"], test["label"]
