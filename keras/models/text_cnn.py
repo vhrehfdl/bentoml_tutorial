@@ -1,7 +1,6 @@
-from keras.layers import Embedding, Dense, Flatten, Input, concatenate
-from keras.layers.convolutional import Conv1D
-from keras.layers.pooling import MaxPool1D
-from keras.models import Model
+from tensorflow.keras.layers import Embedding, Dense, Flatten, Input, concatenate, Conv1D, MaxPool1D
+from tensorflow.keras.models import Model
+
 
 
 def TextCNN(sequence_len, embedding_matrix, embedding_dim, filter_sizes, flag, data_type, category_num=None):
@@ -33,4 +32,6 @@ def TextCNN(sequence_len, embedding_matrix, embedding_dim, filter_sizes, flag, d
     model = Model(inputs=input_layer, outputs=output_layer)
 
     return model
+
+
 
