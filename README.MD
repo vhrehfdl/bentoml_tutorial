@@ -16,6 +16,7 @@ bentoml serve KerasClassification --port 1000
 
 ### Case2
 ```bash
+cd keras
 cd multi_self_training
 python builder.py
 bentoml serve KerasClassification --port 1000
