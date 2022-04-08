@@ -1,0 +1,15 @@
+artifact_uri: file:///data/junghoon/private/bentoml_tutorial/titanic/mlruns/1/263434dac1b340bda90adb7205debdf8/artifacts
+end_time: 1649393566377
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: 263434dac1b340bda90adb7205debdf8
+run_uuid: 263434dac1b340bda90adb7205debdf8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1649393566358
+status: 3
+tags: []
+user_id: root
