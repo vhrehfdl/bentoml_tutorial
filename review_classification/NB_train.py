@@ -1,7 +1,7 @@
 import pickle
 import mlflow
 import pandas as pd
-from konlpy.tag import Mecab, Kkma, Komoran, Hannanum, Okt
+from konlpy.tag import Okt
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics import f1_score, precision_score, recall_score
 from sklearn.naive_bayes import MultinomialNB
@@ -22,11 +22,7 @@ def load_data(train_dir: str, test_dir: str):
 
 
 def pos_tagging(sentences: str):
-    tagger = Mecab()
-    # tagger = Okt()
-    # tagger = Komoran()
-    # tagger = Hannanum()
-
+    tagger = Okt()
     pos_sentences = [" ".join(tagger.nouns(sentence)) for sentence in sentences]
     return pos_sentences
 

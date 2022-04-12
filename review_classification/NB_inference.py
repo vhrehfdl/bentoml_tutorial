@@ -1,12 +1,12 @@
 import pickle
-from konlpy.tag import Mecab
+from konlpy.tag import Okt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from typing import Type
 
 
 def pos_tagging(sentences: str):
-    mecab = Mecab()
-    pos_sentences = [" ".join(mecab.nouns(sentence)) for sentence in sentences]
+    tagger = Okt()
+    pos_sentences = [" ".join(tagger.nouns(sentence)) for sentence in sentences]
     return pos_sentences
 
 

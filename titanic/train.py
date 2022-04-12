@@ -1,4 +1,3 @@
-import mlflow
 import collections
 import pandas as pd
 import pickle
@@ -6,7 +5,6 @@ import pickle
 from sklearn.metrics import f1_score
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
-from mlflow.tracking import MlflowClient
 from service import Titanic
 
 

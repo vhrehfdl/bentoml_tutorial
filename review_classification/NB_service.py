@@ -13,7 +13,6 @@ class ReviewClassifier(BentoService):
     def predict(self, parsed_jsons: List[JsonSerializable]):
         input_texts = parsed_jsons[0]['text']
 
-        
         text = self.artifacts.pos_tagging(input_texts)
         text = self.artifacts.tokenizer.transform(text)
         pred_y = self.artifacts.model.predict(text)
