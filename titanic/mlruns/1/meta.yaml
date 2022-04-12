@@ -1,4 +1,0 @@
-artifact_location: file:///data/junghoon/private/bentoml_tutorial/titanic/mlruns/1
-experiment_id: '1'
-lifecycle_stage: active
-name: titanic

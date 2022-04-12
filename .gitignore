@@ -1,2 +1,7 @@
 __pycache__
 .cache
+*.pickle
+*.pt
+*.csv
+*.txt
+mlruns

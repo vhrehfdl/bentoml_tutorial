@@ -13,7 +13,5 @@ class Titanic(BentoService):
     @api(input=JsonInput(), batch=True)
     def predict(self, parsed_jsons: List[JsonSerializable]):
         input_data = parsed_jsons[0]['data']
-        print(input_data)
-
         pred_y = self.artifacts.model.predict(input_data)
         return [pred_y]

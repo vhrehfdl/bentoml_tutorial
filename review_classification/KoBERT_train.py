@@ -1,6 +1,8 @@
 import gluonnlp as nlp
 import pandas as pd
 import torch
+import mlflow
+import pickle
 from kobert.pytorch_kobert import get_pytorch_kobert_model
 from kobert.utils import get_tokenizer
 from BERT import BERTDataset, BERTClassifier
@@ -100,9 +102,9 @@ if __name__ == "__main__":
     # Setting Directory
     train_dir = "../data/train_binary.csv"
     test_dir = "../data/test_binary.csv"
-    model_dir = "model.pt"
-    tokenizer_dir = "tokenizer.pickle"
-    label_enc_dir = "label_enc.pickle"
+    model_dir = "model_kobert.pt"
+    tokenizer_dir = "tokenizer_kobert.pickle"
+    label_enc_dir = "label_enc_kobert.pickle"
 
     # Setting Parameter
     local_env = "NIPA"
@@ -176,10 +178,10 @@ if __name__ == "__main__":
         mlflow.log_metric("Precision", precision)
         mlflow.log_metric("Recall", recall)
 
-        # print("5. save file")
-        # torch.save(model.state_dict(), model_dir)
-        # pickle.dump(tokenizer, open(tokenizer_dir, 'wb'))
-        # pickle.dump(label_enc, open(label_enc_dir, 'wb'))
+        print("5. save file")
+        torch.save(model.state_dict(), model_dir)
+        pickle.dump(tokenizer, open(tokenizer_dir, 'wb'))
+        pickle.dump(label_enc, open(label_enc_dir, 'wb'))
 
         print("5. packing")
         review_classifier = ReviewClassifier()

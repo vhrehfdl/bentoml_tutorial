@@ -1,6 +1,7 @@
 import mlflow
 import collections
 import pandas as pd
+import pickle
 
 from sklearn.metrics import f1_score
 from sklearn.tree import DecisionTreeClassifier
@@ -44,13 +45,19 @@ if __name__ == '__main__':
     # Directory
     train_dir = "../data/train_titanic.csv"
     test_dir = "../data/test_titanic.csv"
+    model_dir = "model_nb.pickle"
 
     # Flow
     train, test = load_data(train_dir, test_dir)
     train_x, train_y, test_x, test_y = pre_processing(train, test)
     model = build_model(train_x, train_y)
     score = evaluation(model, test_x, test_y)
+    print("점수 :", score)
 
+    # file save
+    pickle.dump(model, open(model_dir, 'wb'))
+
+    # bentoml 
     titanic = Titanic()
     titanic.pack('model', model)
-    saved_path = titanic.save()
+    titanic.save()

@@ -1,4 +1,5 @@
 import pickle
+import mlflow
 import pandas as pd
 from konlpy.tag import Mecab, Kkma, Komoran, Hannanum, Okt
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
@@ -56,8 +57,8 @@ if __name__ == "__main__":
     # Directory Setting
     train_dir = "../data/train_binary.csv"
     test_dir = "../data/test_binary.csv"
-    model_dir = "NB.pickle"
-    tokenizer_dir = "tokenizer.pickle"
+    model_dir = "model_nb.pickle"
+    tokenizer_dir = "tokenizer_nb.pickle"
     local_env = "NIPA"
 
     # MLflow start
@@ -95,9 +96,9 @@ if __name__ == "__main__":
         mlflow.log_metric("Precision", precision)
         mlflow.log_metric("Recall", recall)
 
-        # print("6. save file")
-        # pickle.dump(model, open(model_dir, 'wb'))
-        # pickle.dump(vectorizer, open(tokenizer_dir, 'wb'))
+        print("6. save file")
+        pickle.dump(model, open(model_dir, 'wb'))
+        pickle.dump(vectorizer, open(tokenizer_dir, 'wb'))
 
         print("6. packing")
         review_classifier = ReviewClassifier()

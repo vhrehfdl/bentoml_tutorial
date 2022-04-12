@@ -16,8 +16,8 @@ def custom_tokenizer(text: str):
 
 if __name__ == "__main__":
     # Directory Setting
-    model_dir = "NB.pickle"
-    tokenizer_dir = "tokenizer.pickle"
+    model_dir = "model_nb.pickle"
+    tokenizer_dir = "tokenizer_nb.pickle"
 
     # Flow
     input_text = ["시간버렷다", "와 감동스러운 영화 그 자체~!", "영화 대박 엄청 재미있어요"]

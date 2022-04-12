@@ -9,9 +9,9 @@ from kobert.pytorch_kobert import get_pytorch_kobert_model
 
 if __name__ == "__main__":
     # Setting Directory
-    model_dir = "model.pt"
-    tokenizer_dir = "tokenizer.pickle"
-    label_enc_dir = "label_enc.pickle"
+    model_dir = "model_kobert.pt"
+    tokenizer_dir = "tokenizer_kobert.pickle"
+    label_enc_dir = "label_enc_kobert.pickle"
 
     # Setting Parameter
     device = torch.device("cuda")
