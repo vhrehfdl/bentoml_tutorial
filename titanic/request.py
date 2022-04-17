@@ -12,5 +12,5 @@ json_data = {
     ],
 }
 
-response = requests.post('http://10.20.81.77:5000/predict', headers=headers, json=json_data)
+response = requests.post('http://14.49.44.212:1000/predict', headers=headers, json=json_data)
 print(response.text)

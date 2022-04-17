@@ -1,7 +1,6 @@
 import torch
 import pickle
 from konlpy.tag import Mecab
-from sklearn.feature_extraction.text import TfidfVectorizer
 from typing import Type
 from BERT import BERTDataset, BERTClassifier
 from kobert.pytorch_kobert import get_pytorch_kobert_model
