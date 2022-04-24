@@ -54,3 +54,9 @@ python KoBERT_inference.py
 cd review_classification
 mlflow ui -h 0.0.0.0 -p 1000
 ```
+
+## Yatai Management UI 실행
+```bash
+bentoml yatai-service-start --ui-port 1000
+```
+
