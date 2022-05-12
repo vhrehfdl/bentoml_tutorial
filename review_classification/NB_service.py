@@ -11,10 +11,15 @@ from bentoml.types import JsonSerializable
 class ReviewClassifier(BentoService):
     @api(input=JsonInput(), batch=True)
     def predict(self, parsed_jsons: List[JsonSerializable]):
-        input_texts = parsed_jsons[0]['text']
 
-        text = self.artifacts.pos_tagging(input_texts)
-        text = self.artifacts.tokenizer.transform(text)
-        pred_y = self.artifacts.model.predict(text)
+        response_list = []
+        for parsed_json in parsed_jsons:
+            input_texts = parsed_json['text']
+
+            text = self.artifacts.pos_tagging(input_texts)
+            text = self.artifacts.tokenizer.transform(text)
+            pred_y = self.artifacts.model.predict(text)
+
+            response_list.append(pred_y)
 
         return [pred_y]

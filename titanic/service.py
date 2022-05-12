@@ -12,6 +12,10 @@ from bentoml.types import JsonSerializable
 class Titanic(BentoService):
     @api(input=JsonInput(), batch=True)
     def predict(self, parsed_jsons: List[JsonSerializable]):
-        input_data = parsed_jsons[0]['data']
-        pred_y = self.artifacts.model.predict(input_data)
-        return [pred_y]
+        response_list = []
+        for parsed_json in parsed_jsons:
+            input_data = parsed_json['data']
+            pred_y = self.artifacts.model.predict(input_data)
+            response_list.append(pred_y)
+            
+        return response_list
